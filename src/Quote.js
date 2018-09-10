@@ -14,12 +14,14 @@ class Quote extends Component {
             lName: '',
             length: '',
             thickness: 'Average thickness',
+            hasExtension: 'no',
             extension: '',
-            style: 'All down and curled',
+            style: [],
             time: '',
             travel: '',
             cell: '',
-            email: ''
+            email: '',
+            checked: false
         }
     }
 
@@ -80,12 +82,31 @@ class Quote extends Component {
         this.setState({thickness: e.target.value})
     }
     handleChange = e => {
-        this.setState({[e.target.name]: e.target.value})
+        let {value, checked, type, name} = e.target;
+        const itemValue = type === 'checkbox' ? checked : value;
+        console.log(itemValue)
+
+        if (type !== 'checkbox'){
+            this.setState({[name]: itemValue })
+        }else if (type === 'checkbox' && checked === true) {
+            this.setState(prevState => {
+                return {
+                    checked: itemValue, 
+                    style: [...prevState.style, value] 
+                }})
+        } else if (type === 'checkbox' && checked === false) {
+            this.setState(prevState => {
+                prevState.style.splice((prevState.style.indexOf(value)), 1)
+                return {
+                    checked: itemValue,
+                    style: prevState.style
+                }})
+            
+        }
     }
     submitQuote = e => {
         e.preventDefault()
         this.props.addQuote(this.state)
-        console.log(this.props.quotes)
     }
     render() {
         const dateInputs = this.state.dates.map((dateInfo, i) => {
@@ -102,6 +123,7 @@ class Quote extends Component {
                 <button onClick={this.subEvent}>-</button>
             </div>
         })
+        console.log(this.state.style)
         return (
             <div>
                 <Navbar />
@@ -126,15 +148,29 @@ class Quote extends Component {
                             <option value="Extremely thin">Extremely thin</option>
                         </select>
                         <li>Will you have extensions? If so, what kind?</li>
-                        <input type="text" placeholder="Extension Type" name='extension' value={this.state.extension} onChange={this.handleChange}/>
+                        <div>
+                        {this.state.hasExtension === 'yes' ? 
+                            <div>
+                                <input name='hasExtension' type='radio' onChange={this.handleChange} value='yes'/>Yes
+                                <input name='hasExtension' type='radio' onChange={this.handleChange} value='no'/>No
+                                <br/>
+                                <input type="text" placeholder="Extension Type" name='extension' value={this.state.extension} onChange={this.handleChange}/>
+                            </div>
+                            :
+                            <div>
+                                <input name='hasExtension' type='radio' onChange={this.handleChange} value='yes'/>Yes
+                                <input name='hasExtension' type='radio' onChange={this.handleChange} value='no'/>No
+                            </div>
+                        }
+                        </div>
                         <li>How are you wanting your hair? **I sometimes have brides request hairstyles that aren’t ideal for their hair simply because their hair texture or length works better with a different style. If you are unsure about the style you want, that is okay - let’s consult about what will look best on YOU when I meet you. In the meantime, check any styles you are interested.**</li>
-                        <select name="style" value={this.state.style } onChange={this.handleStyles}>
-                            <option value="Updo">Updo</option>
-                            <option value="All down and curled">All down and curled</option>
-                            <option value="Half up/half down">Half up/half down</option>
-                            <option value="A braid of some sort">A braid of some sort</option>
-                            <option value="Coming to one side and down">Coming to one side and down</option>
-                        </select>
+                        <div id="checkboxInputs">
+                            <input name='checked' type='checkbox' onChange={this.handleChange} value='Updo'/>Updo
+                            <input name='checked' type='checkbox' onChange={this.handleChange} value='All down and curled'/>All down and curled
+                            <input name='checked' type='checkbox' onChange={this.handleChange} value='Half up/half down'/>Half up/half down
+                            <input name='checked' type='checkbox' onChange={this.handleChange} value='A braid of some sort'/>A braid of some sort
+                            <input name='checked' type='checkbox' onChange={this.handleChange} value='Coming to one side and down'/>Coming to one side and down
+                        </div>                        
                         <li>What time do YOU need to be ready by on your wedding day? (This isn’t a start time - I need to know what time I need to be finished by).</li>
                         <input type="time" name='time' value={this.state.time} onChange={this.handleChange} />
                         <li>Did you want me to travel to you on your wedding day? If so, what is the location?</li>
