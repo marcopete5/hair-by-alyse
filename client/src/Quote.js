@@ -108,7 +108,14 @@ class Quote extends Component {
         e.preventDefault()
         this.props.addQuote(this.state)
     }
+
+    email = () => {
+        
+    }
+
+    
     render() {
+
         const dateInputs = this.state.dates.map((dateInfo, i) => {
             return <div key={i}>
                 <input type="date" name="date" value={dateInfo.date} onChange={this.handleDateEventChange(i)} />
@@ -182,6 +189,7 @@ class Quote extends Component {
                         <textarea name="comments" value={this.state.comments} onChange={this.handleChange} cols="30" rows="10"></textarea>
                     </ol>
                     <button onClick={this.submitQuote}>Submit</button>
+                    <button onClick={this.email}>Email</button>
                 </div>
             </div>
         );
