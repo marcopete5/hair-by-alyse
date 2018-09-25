@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ImageSlide from './ImageSlide';
 import imgUrls from './imgUrls';
 import Navbar from './Navbar';
+import {Link} from 'react-router-dom';
 
 class Carousel extends Component {
     constructor(){
@@ -43,7 +44,6 @@ class Carousel extends Component {
           <Navbar />
           <div>
             <div className="carousel">
-                <h1 id='logo'>HairByAlyse</h1>
                 <ImageSlide url={ imgUrls[this.state.currentImageIndex] } />
             </div>
             <div id='overlay'></div>

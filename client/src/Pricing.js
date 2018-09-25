@@ -4,7 +4,9 @@ import Navbar from './Navbar';
 const Pricing = () => {
     return (
         <div>
-            <Navbar />
+            <div id="adminNavbar">
+                <Navbar />
+            </div>
             <div id='priceDiv'>
                 <h1><u>Pricing</u></h1>
                 <h3>For the bride:</h3>

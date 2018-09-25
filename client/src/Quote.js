@@ -18,6 +18,7 @@ class Quote extends Component {
             extension: '',
             style: [],
             time: '',
+            needsTravel: 'no',
             travel: '',
             cell: '',
             email: '',
@@ -132,7 +133,9 @@ class Quote extends Component {
         })
         return (
             <div>
-                <Navbar />
+                <div id="adminNavbar">
+                   <Navbar />
+                </div>
                 <div id='quoteDiv'>
                     <h1>Get Your Specific Hair Quote</h1>
                     <i>To receive a quote for your event, answer the questions below. I will respond via email within 1 business day.</i>
@@ -180,7 +183,19 @@ class Quote extends Component {
                         <li>What time do YOU need to be ready by on your wedding day? (This isn’t a start time - I need to know what time I need to be finished by).</li>
                         <input type="time" name='time' value={this.state.time} onChange={this.handleChange} />
                         <li>Did you want me to travel to you on your wedding day? If so, what is the location?</li>
-                        <input type="text" name='travel' value={this.state.travel} onChange={this.handleChange}/>
+                        {this.state.needsTravel === 'yes' ? 
+                            <div>
+                                <input name='needsTravel' type='radio' onChange={this.handleChange} value='yes'/>Yes
+                                <input name='needsTravel' type='radio' onChange={this.handleChange} value='no'/>No
+                                <br/>
+                                <input type="text" name='travel' value={this.state.travel} onChange={this.handleChange}/>
+                            </div>
+                            :
+                            <div>
+                                <input name='needsTravel' type='radio' onChange={this.handleChange} value='yes'/>Yes
+                                <input name='needsTravel' type='radio' onChange={this.handleChange} value='no'/>No
+                            </div>
+                        }
                         <li>Email</li> 
                         <input type="email" name="email" value={this.state.email} onChange={this.handleChange}/>
                         <li>Cell Phone</li>

@@ -4,7 +4,9 @@ import Navbar from './Navbar';
 const FAQ = () => {
     return (
         <div>
-            <Navbar />
+            <div id="adminNavbar">
+                <Navbar />
+            </div>
             <div className='faqDiv'>
                 <h1 id='faqTitle'>FAQ's</h1>
                 <table>

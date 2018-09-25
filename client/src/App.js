@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
+
+// my components
 import Carousel from './Carousel';
 import Quote from './Quote';
 import FAQ from './FAQ';
 import Pricing from './Pricing';
 import Admin from './Admin';
-import {Switch, Route} from 'react-router-dom';
+
+//router
+import {Switch, Route, withRouter} from 'react-router-dom';
+
+//redux
+import { connect } from 'react-redux';
+import {getAllQuotes} from './redux';
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.getAllQuotes()
+  }
+
   render() {
     return (
       <div>
@@ -22,4 +35,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(connect(null, {getAllQuotes})(App));

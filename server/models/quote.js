@@ -16,6 +16,7 @@ const quoteSchema = new Schema({
     extension: String,
     style: [String],
     time: String,
+    needsTravel: Boolean,
     travel: String,
     email: String,
     cell: String,
